@@ -13,6 +13,10 @@ interface Parrot {
     int getMaxHeight();
     int estimatedFlight(int boostSpeed, int time);
     String activeBoost();
+    int setPowerUplevel(int powerUplevel);
+    int setBoostSpeed(int boostSpeed);
+    int setMaxSpeed(int maxSpeed);
+    void setTime(int i);
 }
 
 class PowerParrot implements Parrot {
@@ -55,6 +59,41 @@ class PowerParrot implements Parrot {
         return maxHeight;
     }
 
+    public int setPowerUplevel(int powerUplevel) {
+        this.powerUplevel = powerUplevel;
+        return powerUplevel;
+    }
+
+    public int getPowerUplevel() {
+        return powerUplevel;
+    }
+
+    public int setBoostSpeed(int boostSpeed) {
+        this.boostSpeed = boostSpeed;
+        return boostSpeed;
+    }
+
+    public int getBoostSpeed() {
+        return boostSpeed;
+    }
+
+    public int setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+        return maxSpeed;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     @Override
     public void flappingWings() {
         System.out.println(name + " is flapping wings!");
@@ -76,7 +115,7 @@ class PowerParrot implements Parrot {
     }
 
     public int estimatedFlight(int boostSpeed, int time) {
-        return boostSpeed * time;
+        return boostSpeed * time * powerUplevel;
     }
 
     @Override
@@ -103,6 +142,11 @@ public class Main {
         SkyBolt.setName("SkyBolt");
         SkyBolt.setColor("Red");
         SkyBolt.setMaxHeight(150);
+        SkyBolt.setPowerUplevel(3); // Setting power level for SkyBolt
+        SkyBolt.setBoostSpeed(20); // Setting boost speed
+        SkyBolt.setMaxSpeed(50);   // Setting max speed
+        SkyBolt.setTime(5);
+
 
         while (true) {
             System.out.println("\nYou have the following parrots:");
@@ -195,6 +239,7 @@ public class Main {
                         SkyBolt.fly();
                         pause(1000);
                         System.out.println("SkyBolt can boost speed as its special ability, want to use it? (Y/N): ");
+                        input.nextLine();
                         String boostChoice = input.nextLine().toLowerCase().trim();
 
                         if (boostChoice.equals("y")) {
